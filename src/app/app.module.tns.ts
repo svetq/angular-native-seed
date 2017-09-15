@@ -10,6 +10,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // app
 import { Config } from './common/index';
 import { AppComponent } from './app.component';
+import { SHARED_MODULES } from './app.common';
+import { GridComponent } from "./grid/grid.component";
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.MOBILE_NATIVE;
 
@@ -30,10 +32,11 @@ export function createTranslateLoader(http: Http) {
                 useFactory: (createTranslateLoader),
                 deps: [Http]
             }
-        })
+        }),
+        ...SHARED_MODULES
     ],
     declarations: [
-        AppComponent
+        AppComponent, GridComponent
     ],
     providers: [
         // Allows your {N} application to use lazy-loading

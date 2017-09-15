@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 
 @Component({
     selector: 'types-distribution',
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
             <h4 class="card-header">Types Distribution</h4>
             <div class="row card-block small">
                 <a *ngFor="let button of seriesColors" (click)="addSeries(button, true)"
-                    [style.color]="button.active ? button.value : initialGrey"
+                    [ngStyle]="{'color': button.active ? button.value : initialGrey }"
                     class="col-xs-4 col-sm-3 col-md comp-label">
                     <strong>{{data[button.label].length}}</strong>
                     <small>{{button.label}}</small>
@@ -44,7 +44,7 @@ import { Component, Input, OnInit } from '@angular/core';
         </div>
     `
 })
-export class TypesDistributionComponent implements OnInit {
+export class TypesDistributionComponent implements AfterViewInit {
     private baseUnit;
     @Input() public data;
     @Input() public set months(months) {
@@ -61,7 +61,7 @@ export class TypesDistributionComponent implements OnInit {
         { label: "Enhancement", value: "#22C85D", active: false },
         { label: "Feature", value: "#FF6358", active: false },
         { label: "Others", value: "#2BA7DA", active: false }
-    ];
+    ]
 
     public addSeries(button, toggleLabels) {
         if (toggleLabels) {
@@ -88,7 +88,7 @@ export class TypesDistributionComponent implements OnInit {
         this.series = this.visibleSeries;
     }
 
-    public ngOnInit() {
+    public ngAfterViewInit() {
         this.addSeries({ label: "SEV: Low", value: '#FF9966', active: false }, true);
         this.addSeries({ label: 'Enhancement', value: '#22C85D', active: false }, true);
         this.addSeries({ label: 'Others', value: '#2BA7DA', active: false }, true);
